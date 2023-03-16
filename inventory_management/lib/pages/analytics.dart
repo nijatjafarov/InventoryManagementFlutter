@@ -27,20 +27,40 @@ class AnalyticsPage extends StatelessWidget {
                     color: Colors.white
                   ),
                   columns: const [
-                    DataColumn(label: Text('Date', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white))),
+                    DataColumn(label: Text('Day', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white))),
                     DataColumn(label: Text('Purchase amount', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white))),
                     DataColumn(label: Text('Sales amount', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white))),
                     DataColumn(label: Text('Profit', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white))),
                   ], rows: const [
                     DataRow(cells: [
                       DataCell(
-                        Text('Jeu', style: TextStyle(fontSize: 16),)),
+                        Text('1', style: TextStyle(fontSize: 16),)),
                       DataCell(
-                        Text('Jeu', style: TextStyle(fontSize: 16),)),
+                        Text('125', style: TextStyle(fontSize: 16),)),
                       DataCell(
-                        Text('Jeu', style: TextStyle(fontSize: 16),)),
+                        Text('245', style: TextStyle(fontSize: 16),)),
                       DataCell(
-                        Text('Jeu', style: TextStyle(fontSize: 16),)),
+                        Text('120', style: TextStyle(fontSize: 16),)),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(
+                        Text('2', style: TextStyle(fontSize: 16),)),
+                      DataCell(
+                        Text('123', style: TextStyle(fontSize: 16),)),
+                      DataCell(
+                        Text('236', style: TextStyle(fontSize: 16),)),
+                      DataCell(
+                        Text('113', style: TextStyle(fontSize: 16),)),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(
+                        Text('3', style: TextStyle(fontSize: 16),)),
+                      DataCell(
+                        Text('231', style: TextStyle(fontSize: 16),)),
+                      DataCell(
+                        Text('245', style: TextStyle(fontSize: 16),)),
+                      DataCell(
+                        Text('14', style: TextStyle(fontSize: 16),)),
                     ]),]
                 ),
               )
@@ -68,20 +88,40 @@ class AnalyticsPage extends StatelessWidget {
                     color: Colors.white
                   ),
                   columns: const [
-                    DataColumn(label: Text('Date', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white))),
+                    DataColumn(label: Text('Month', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white))),
                     DataColumn(label: Text('Purchase amount', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white))),
                     DataColumn(label: Text('Sales amount', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white))),
                     DataColumn(label: Text('Profit', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white))),
                   ], rows: const [
                     DataRow(cells: [
                       DataCell(
-                        Text('Jeu', style: TextStyle(fontSize: 16),)),
+                        Text('January', style: TextStyle(fontSize: 16),)),
                       DataCell(
-                        Text('Jeu', style: TextStyle(fontSize: 16),)),
+                        Text('125', style: TextStyle(fontSize: 16),)),
                       DataCell(
-                        Text('Jeu', style: TextStyle(fontSize: 16),)),
+                        Text('245', style: TextStyle(fontSize: 16),)),
                       DataCell(
-                        Text('Jeu', style: TextStyle(fontSize: 16),)),
+                        Text('120', style: TextStyle(fontSize: 16),)),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(
+                        Text('February', style: TextStyle(fontSize: 16),)),
+                      DataCell(
+                        Text('123', style: TextStyle(fontSize: 16),)),
+                      DataCell(
+                        Text('236', style: TextStyle(fontSize: 16),)),
+                      DataCell(
+                        Text('113', style: TextStyle(fontSize: 16),)),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(
+                        Text('March', style: TextStyle(fontSize: 16),)),
+                      DataCell(
+                        Text('231', style: TextStyle(fontSize: 16),)),
+                      DataCell(
+                        Text('245', style: TextStyle(fontSize: 16),)),
+                      DataCell(
+                        Text('14', style: TextStyle(fontSize: 16),)),
                     ]),]
                 ),
               )

@@ -133,13 +133,23 @@ class _SalePageState extends State<SalePage> {
                   ], rows: const [
                     DataRow(cells: [
                       DataCell(
-                        Text('Jeu')),
+                        Text('Product 1')),
                       DataCell(
-                        Text('Jeu')),
+                        Text('10')),
                       DataCell(
-                        Text('Jeu')),
+                        Text('10')),
                       DataCell(
-                        Text('Jeu')),
+                        Text('5')),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(
+                        Text('Product 2')),
+                      DataCell(
+                        Text('12')),
+                      DataCell(
+                        Text('12')),
+                      DataCell(
+                        Text('7')),
                     ]),
                   ]
                 ),

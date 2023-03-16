@@ -1,13 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_management/common_widgets/app_bar.dart';
-import 'package:inventory_management/db/database.dart';
 import 'package:inventory_management/pages/purchase.dart';
 import 'package:inventory_management/pages/sale.dart';
 import 'package:inventory_management/pages/info.dart';
 import 'package:inventory_management/pages/analytics.dart';
-
-import '../models/goods.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,31 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-  late List<Goods> goods;
-  bool isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    refreshGoods();
-  }
-
-  @override
-  void dispose() {
-    MyDatabase.instance.close();
-
-    super.dispose();
-  }
-
-  Future refreshGoods() async {
-    setState(() => isLoading = true);
-
-    goods = await MyDatabase.instance.readGoods();
-
-    setState(() => isLoading = false);
-  }
 
   int _currentIndex = 0;
   
@@ -57,8 +29,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(245, 245, 245, 1),
       appBar: MyAppBar(titl: _widgetOptions[_currentIndex][1]),
-      body: isLoading
-              ? const Center(child: CircularProgressIndicator(),) : _widgetOptions[_currentIndex][0],
+      body: _widgetOptions[_currentIndex][0],
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: const Color.fromRGBO(26, 28, 74, 1),
         showSelectedLabels: false,

@@ -1,7 +1,41 @@
 import 'package:flutter/material.dart';
 
-class InfoPage extends StatelessWidget {
+import '../db/database.dart';
+import '../models/goods.dart';
+
+class InfoPage extends StatefulWidget {
   const InfoPage({super.key});
+
+  @override
+  State<InfoPage> createState() => _InfoPageState();
+}
+
+class _InfoPageState extends State<InfoPage> {
+  late List<Goods> goods;
+
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    refreshGoods();
+  }
+
+  @override
+  void dispose() {
+    MyDatabase.instance.close();
+
+    super.dispose();
+  }
+
+  Future refreshGoods() async {
+    setState(() => isLoading = true);
+
+    goods = await MyDatabase.instance.readGoods();
+
+    setState(() => isLoading = false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,16 +90,40 @@ class InfoPage extends StatelessWidget {
                   ], rows: const [
                     DataRow(cells: [
                       DataCell(
-                        Text('Jeu')),
+                        Text('Product 1')),
                       DataCell(
-                        Text('Jeu')),
+                        Text('kg')),
                       DataCell(
-                        Text('Jeu')),
+                        Text('120')),
                       DataCell(
-                        Text('Jeu')),
+                        Text('10')),
                       DataCell(
-                        Text('Jeu')),
-                    ])
+                        Text('15')),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(
+                        Text('Product 2')),
+                      DataCell(
+                        Text('m')),
+                      DataCell(
+                        Text('15')),
+                      DataCell(
+                        Text('12')),
+                      DataCell(
+                        Text('17')),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(
+                        Text('Product 3')),
+                      DataCell(
+                        Text('l')),
+                      DataCell(
+                        Text('10')),
+                      DataCell(
+                        Text('1')),
+                      DataCell(
+                        Text('2')),
+                    ]),
                   ]
                 ),
               )
