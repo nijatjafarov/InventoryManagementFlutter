@@ -37,9 +37,32 @@ class _InfoPageState extends State<InfoPage> {
     setState(() => isLoading = false);
   }
 
+  List<DataRow> buildDataRows() {
+    List<DataRow> rows = [];
+
+    for(int i = 0; i < goods.length; i++) {
+      rows.add(
+        DataRow(cells: [
+          DataCell(Text(goods[i].name)),
+          DataCell(Text(goods[i].measurementUnit)),
+          DataCell(Text(goods[i].quantity.toString())),
+          DataCell(Text(goods[i].purchasePrice.toString())),
+          DataCell(Text(goods[i].salesPrice.toString())),
+        ]),
+      );
+    }
+    return rows;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return isLoading ? const Center(child: CircularProgressIndicator(color: Color.fromRGBO(26, 28, 74, 1),),) 
+    : goods.isNotEmpty ? const Center(child: Text("There is no item in your stock", style: TextStyle(
+              color: Color.fromRGBO(26, 28, 74, 1),
+              fontSize: 20,
+              fontWeight: FontWeight.w500
+            ),
+          ),) : ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         children: [
           Card(
@@ -62,6 +85,7 @@ class _InfoPageState extends State<InfoPage> {
             ),
             )
           ),
+
           const Text("List of your goods", style: TextStyle(
               color: Color.fromRGBO(26, 28, 74, 1),
               fontSize: 20,
@@ -87,44 +111,7 @@ class _InfoPageState extends State<InfoPage> {
                     DataColumn(label: Text('Quantity', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white))),
                     DataColumn(label: Text('Purchase price', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white))),
                     DataColumn(label: Text('Sale price', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)))
-                  ], rows: const [
-                    DataRow(cells: [
-                      DataCell(
-                        Text('Product 1')),
-                      DataCell(
-                        Text('kg')),
-                      DataCell(
-                        Text('120')),
-                      DataCell(
-                        Text('10')),
-                      DataCell(
-                        Text('15')),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(
-                        Text('Product 2')),
-                      DataCell(
-                        Text('m')),
-                      DataCell(
-                        Text('15')),
-                      DataCell(
-                        Text('12')),
-                      DataCell(
-                        Text('17')),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(
-                        Text('Product 3')),
-                      DataCell(
-                        Text('l')),
-                      DataCell(
-                        Text('10')),
-                      DataCell(
-                        Text('1')),
-                      DataCell(
-                        Text('2')),
-                    ]),
-                  ]
+                  ], rows: buildDataRows(),
                 ),
               )
           )

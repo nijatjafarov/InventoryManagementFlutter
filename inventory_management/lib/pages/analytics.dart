@@ -1,7 +1,57 @@
 import 'package:flutter/material.dart';
 
-class AnalyticsPage extends StatelessWidget {
+import '../db/database.dart';
+import '../models/report.dart';
+
+class AnalyticsPage extends StatefulWidget {
   const AnalyticsPage({super.key});
+
+  @override
+  State<AnalyticsPage> createState() => _AnalyticsPageState();
+}
+
+class _AnalyticsPageState extends State<AnalyticsPage> {
+  late List<Report> reports;
+
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    refreshReports();
+  }
+
+  @override
+  void dispose() {
+    MyDatabase.instance.close();
+
+    super.dispose();
+  }
+
+  Future refreshReports() async {
+    setState(() => isLoading = true);
+
+    reports = await MyDatabase.instance.readReports();
+
+    setState(() => isLoading = false);
+  }
+
+  List<DataRow> buildDataRows() {
+    List<DataRow> rows = [];
+
+    for(int i = 0; i < reports.length; i++) {
+      rows.add(
+        DataRow(cells: [
+          DataCell(Text(reports[i].date.toString())),
+          DataCell(Text(reports[i].purchaseAmount.toString())),
+          DataCell(Text(reports[i].salesAmount.toString())),
+          DataCell(Text(reports[i].benefit.toString())),
+        ]),
+      );
+    }
+    return rows;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +117,7 @@ class AnalyticsPage extends StatelessWidget {
           ),
         ),
         Container(
-            padding: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 40),
             child: const Text("Report on the months of the current year", style: TextStyle(
               color: Color.fromRGBO(26, 28, 74, 1),
               fontSize: 20,
