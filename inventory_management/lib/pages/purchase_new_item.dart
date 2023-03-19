@@ -17,7 +17,7 @@ class PurhaseNewItemPage extends StatefulWidget {
 
 class _PurhaseNewItemPageState extends State<PurhaseNewItemPage> {
   List<String> measurementUnits = ['inch', 'foot', 'meter', 'centimeter', 'millimeter', 'square foot', 'square meter', 'square inch', 'hectare', 'acre', 'gallon', 'liter', 'milliliter', 'cubic feet', 'cubic meter', 'pound', 'kilogram', 'gram', 'ounce', 'second', 'minute', 'hour', 'day', 'week', 'month', 'year', 'dozen', 'gross', 'unit', 'piece'];
-  String? selectUnitValue = 'inch';
+  String selectUnitValue = 'inch';
 
   final _formKey = GlobalKey<FormState>();
   late String name;
@@ -71,6 +71,9 @@ class _PurhaseNewItemPageState extends State<PurhaseNewItemPage> {
                   return "Enter a value";
                 }
                 return null;
+              },
+              onSaved: (value) {
+                name = value!;
               },
             )
           ),
@@ -136,6 +139,9 @@ class _PurhaseNewItemPageState extends State<PurhaseNewItemPage> {
                 }
                 return null;
               },
+              onSaved: (value) {
+                quantity = double.parse(value!);
+              },
             )
           ),
           const SizedBox(height: 20),
@@ -167,6 +173,9 @@ class _PurhaseNewItemPageState extends State<PurhaseNewItemPage> {
                 }
                 return null;
               },
+              onSaved: (value) {
+                purchasePrice = double.parse(value!);
+              },
             )
           ),
           const SizedBox(height: 20),
@@ -197,6 +206,9 @@ class _PurhaseNewItemPageState extends State<PurhaseNewItemPage> {
                 }
                 return null;
               },
+              onSaved: (value) {
+                salesPrice = double.parse(value!);
+              },
             )
           ),
         const SizedBox(height: 50),
@@ -209,9 +221,8 @@ class _PurhaseNewItemPageState extends State<PurhaseNewItemPage> {
                 )),
                 minimumSize: MaterialStatePropertyAll(Size(70,70))
                 ),
-
-              child: const Text('Confirm', style: TextStyle(fontSize: 20),),
               onPressed: addOrUpdateGoods,
+              child: const Text('Confirm', style: TextStyle(fontSize: 20),),
               )
           ),
         ],
@@ -223,6 +234,7 @@ class _PurhaseNewItemPageState extends State<PurhaseNewItemPage> {
   void addOrUpdateGoods() async {
     if(_formKey.currentState!.validate()){
       final isUpdating = widget.goods != null;
+      _formKey.currentState!.save();
 
       if(isUpdating) {
         await updateGoods();
@@ -247,7 +259,7 @@ class _PurhaseNewItemPageState extends State<PurhaseNewItemPage> {
   Future addGoods() async {
     final goods = Goods(
       name: name,
-      measurementUnit: measurementUnit,
+      measurementUnit: selectUnitValue,
       quantity: quantity,
       purchasePrice: purchasePrice,
       salesPrice: salesPrice

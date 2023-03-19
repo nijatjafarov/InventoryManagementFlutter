@@ -13,6 +13,8 @@ class InfoPage extends StatefulWidget {
 class _InfoPageState extends State<InfoPage> {
   late List<Goods> goods;
 
+  List<Goods> filteredGoods = [];
+
   bool isLoading = false;
 
   @override
@@ -33,6 +35,7 @@ class _InfoPageState extends State<InfoPage> {
     setState(() => isLoading = true);
 
     goods = await MyDatabase.instance.readGoods();
+    filteredGoods = goods;
 
     setState(() => isLoading = false);
   }
@@ -40,14 +43,14 @@ class _InfoPageState extends State<InfoPage> {
   List<DataRow> buildDataRows() {
     List<DataRow> rows = [];
 
-    for(int i = 0; i < goods.length; i++) {
+    for(int i = 0; i < filteredGoods.length; i++) {
       rows.add(
         DataRow(cells: [
-          DataCell(Text(goods[i].name)),
-          DataCell(Text(goods[i].measurementUnit)),
-          DataCell(Text(goods[i].quantity.toString())),
-          DataCell(Text(goods[i].purchasePrice.toString())),
-          DataCell(Text(goods[i].salesPrice.toString())),
+          DataCell(Text(filteredGoods[i].name, style: const TextStyle(fontSize: 16),)),
+          DataCell(Text(filteredGoods[i].measurementUnit, style: const TextStyle(fontSize: 16),)),
+          DataCell(Text(filteredGoods[i].quantity.toString(), style: const TextStyle(fontSize: 16),)),
+          DataCell(Text(filteredGoods[i].purchasePrice.toString(), style: const TextStyle(fontSize: 16),)),
+          DataCell(Text(filteredGoods[i].salesPrice.toString(), style: const TextStyle(fontSize: 16),)),
         ]),
       );
     }
@@ -57,7 +60,7 @@ class _InfoPageState extends State<InfoPage> {
   @override
   Widget build(BuildContext context) {
     return isLoading ? const Center(child: CircularProgressIndicator(color: Color.fromRGBO(26, 28, 74, 1),),) 
-    : goods.isNotEmpty ? const Center(child: Text("There is no item in your stock", style: TextStyle(
+    : goods.isEmpty ? const Center(child: Text("There is no item in your stock", style: TextStyle(
               color: Color.fromRGBO(26, 28, 74, 1),
               fontSize: 20,
               fontWeight: FontWeight.w500
@@ -80,7 +83,9 @@ class _InfoPageState extends State<InfoPage> {
                 border: InputBorder.none,
               ),
               onChanged: (value) {
-                // Perform search operation
+                setState(() {
+                  filteredGoods = goods.where((item) => item.name.toLowerCase().contains(value.toLowerCase())).toList();
+                });
               },
             ),
             )

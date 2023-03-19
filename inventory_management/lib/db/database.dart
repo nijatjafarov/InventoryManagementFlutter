@@ -54,9 +54,10 @@ CREATE TABLE $tableReports (
   }
 
   Future<Goods> createGoods(Goods goods) async {
-    final db = await database;
+    final db = await instance.database;
     
     final id = await db.insert(tableGoods, goods.toJson());
+    
     return goods.copy(id: id);
   }
 
@@ -89,6 +90,23 @@ CREATE TABLE $tableReports (
       throw Exception('Database is closed');
     }
   }
+
+    Future<Goods> readSingleGoods(int? id) async {
+      final db = await instance.database;
+
+      final maps = await db.query(
+        tableGoods,
+        columns: GoodsFields.values,
+        where: '${GoodsFields.id} = ?',
+        whereArgs: [id],
+      );
+
+      if (maps.isNotEmpty) {
+        return Goods.fromJson(maps.first);
+      } else {
+        throw Exception('ID $id not found');
+      }
+    }
 
   Future<int> updateGoods(Goods goods) async {
     final db = await instance.database;
@@ -125,7 +143,7 @@ CREATE TABLE $tableReports (
     // final id = await db
     //     .rawInsert('INSERT INTO table_name ($columns) VALUES ($values)');
 
-    final id = await db.insert(tableGoods, report.toJson());
+    final id = await db.insert(tableReports, report.toJson());
     return report.copy(id: id);
   }
 
@@ -183,5 +201,6 @@ CREATE TABLE $tableReports (
     final db = await instance.database;
 
     db.close();
+    _database = null;
   }
 }
